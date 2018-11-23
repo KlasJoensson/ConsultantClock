@@ -36,7 +36,7 @@ public class Project {
 			@Override
 			public void run() {
 				addTime();
-				timeLabel.setText(""+getTime());
+				timeLabel.setText(getTimeAsString());
 			}
 		}, 0, 1000);
 	}
@@ -62,8 +62,25 @@ public class Project {
 		time = 0;
 	}
 	
-	private void startTimer() {
-		//TODO Write, this method shall start the timer and update the time variable...
-		// Or shuld this be done in this class at all?
+	public String getTimeAsString() {
+		StringBuilder timeStr = new StringBuilder();
+		int rest = time%3600;
+		int min = rest/60;
+		int s = rest%60;
+		
+		timeStr.append(time/3600);
+		timeStr.append(":");
+		if (min<10) {
+			timeStr.append("0");
+		}
+		timeStr.append(min);
+		timeStr.append(":");
+		if (s<10) {
+			timeStr.append("0");
+		}
+		timeStr.append(s);		
+		
+		return timeStr.toString();
 	}
+	
 }

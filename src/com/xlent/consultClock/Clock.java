@@ -37,7 +37,7 @@ public class Clock extends Application {
 	
 	private VBox addProject(Project project) {
 		VBox projectBox = new VBox();
-		Text timeLabel = new Text(""+project.getTime());
+		Text timeLabel = new Text(project.getTimeAsString());
 		
 		projectBox.getChildren().add(new Label(project.getName()));
 				
