@@ -1,10 +1,17 @@
 package com.xlent.consultClock;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
+
 public class Project {
 	
 	private String name;
 	private boolean ticking;
 	private int time;
+	private Timer timer = new Timer();
 	
 	public Project(String name) {
 		this.name = name;
@@ -22,12 +29,21 @@ public class Project {
 		return name;
 	}
 	
-	public void start() {
+	public void start(Text timeLabel) {
 		ticking = true;
+		timer.scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				addTime();
+				timeLabel.setText(""+getTime());
+			}
+		}, 0, 1000);
 	}
 	
 	public void pause() {
 		ticking = false;
+		timer.cancel();
 	}
 	
 	public boolean isTicking() {

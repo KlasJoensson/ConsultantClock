@@ -1,5 +1,8 @@
 package com.xlent.consultClock;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Clock extends Application {
@@ -33,10 +37,10 @@ public class Clock extends Application {
 	
 	private VBox addProject(Project project) {
 		VBox projectBox = new VBox();
-		Label time = new Label(""+project.getTime());
+		Text timeLabel = new Text(""+project.getTime());
 		
 		projectBox.getChildren().add(new Label(project.getName()));
-		
+				
 		Button startStopBtn = new Button("Start");
 		startStopBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -46,13 +50,13 @@ public class Clock extends Application {
 					project.pause();
 					startStopBtn.setText("Start");
 				} else {
-					project.start();
-					startStopBtn.setText("Pause");
+					project.start(timeLabel);
+					startStopBtn.setText("Pause");					
 				}
 			}
 		});
 		projectBox.getChildren().add(startStopBtn);
-		projectBox.getChildren().add(time);
+		projectBox.getChildren().add(timeLabel);
 		
 		return projectBox;
 	}
