@@ -80,9 +80,19 @@ public class Clock extends Application {
 				}
 			}
 		});
+		Button removeBtn = new Button("Remove");
+		removeBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				mainPlane.getChildren().remove(projectBox);
+				stage.setHeight(stage.getHeight() - 60);
+			}
+		});
 		HBox buttons = new HBox();
 		buttons.getChildren().add(startStopBtn);
 		buttons.getChildren().add(resetBtn);
+		buttons.getChildren().add(removeBtn);
 		buttons.setAlignment(Pos.TOP_CENTER);
 		
 		projectBox.getChildren().add(buttons);
