@@ -1,6 +1,11 @@
 package com.xlent.consultClock;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.application.Application;
@@ -15,12 +20,15 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Clock extends Application {
 	
 	private VBox mainPlane;
 	private Stage stage;
+	private ArrayList<Project> projects = new ArrayList<Project>();
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -33,9 +41,18 @@ public class Clock extends Application {
 		mainPlane = new VBox();
 		mainPlane.setPadding(new Insets(10));
 		
+		HBox controlPlane = new HBox();
+		
 		Button addProject = new Button("New");
 		addProject.setOnAction(newProjectEventHandler);
-		mainPlane.getChildren().add(addProject);
+		controlPlane.getChildren().add(addProject);
+		Button saveProject = new Button("Save");
+		saveProject.setOnAction(saveProjectEventHandler);
+		controlPlane.getChildren().add(saveProject);
+		Button openProject = new Button("Open");
+		controlPlane.getChildren().add(openProject);
+		
+		mainPlane.getChildren().add(controlPlane);
 		
 		Scene scene = new Scene(mainPlane, 200, 50);
 	
@@ -47,6 +64,7 @@ public class Clock extends Application {
 		Project newProject = new Project(name);
 		mainPlane.getChildren().add(addProject(newProject));
 		stage.setHeight(stage.getHeight() + 60);
+		projects.add(newProject);
 	}
 	
 	private VBox addProject(Project project) {
@@ -87,6 +105,7 @@ public class Clock extends Application {
 			public void handle(ActionEvent event) {
 				mainPlane.getChildren().remove(projectBox);
 				stage.setHeight(stage.getHeight() - 60);
+				projects.remove(project);
 			}
 		});
 		HBox buttons = new HBox();
@@ -113,5 +132,34 @@ public class Clock extends Application {
 			Optional<String> result = dialog.showAndWait();
 			result.ifPresent(name -> addNewProject(name));
 		}
+	};
+	
+	private EventHandler<ActionEvent> saveProjectEventHandler = new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save projects");
+            fileChooser.setInitialDirectory( new File(System.getProperty("user.home")) );
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Consult time projects", "*.ctp"));
+            File file = fileChooser.showSaveDialog(stage);
+            if (file != null) {     	
+            	try {
+            		BufferedWriter writer = Files.newBufferedWriter(file.toPath());
+        			projects.stream().forEach(project -> {
+						try {
+							writer.write( project.toString() + "\n" );
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} );
+        			writer.flush();
+            		writer.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } 
+            }
+		}
+		
 	};
 }

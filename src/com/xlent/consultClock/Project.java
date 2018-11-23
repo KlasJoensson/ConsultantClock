@@ -83,4 +83,12 @@ public class Project {
 		return timeStr.toString();
 	}
 	
+	public String toString() {
+		StringBuilder projectStr = new StringBuilder();
+		projectStr.append(getName());
+		projectStr.append(":");
+		projectStr.append(getTime());
+		
+		return projectStr.toString();
+	}
 }
