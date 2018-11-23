@@ -2,11 +2,12 @@ package com.xlent.consultClock;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -51,7 +52,7 @@ public class Clock extends Application {
 		controlPlane.getChildren().add(saveProject);
 		Button openProject = new Button("Open");
 		controlPlane.getChildren().add(openProject);
-		
+		openProject.setOnAction(openProjectEventHandler);
 		mainPlane.getChildren().add(controlPlane);
 		
 		Scene scene = new Scene(mainPlane, 200, 50);
@@ -62,9 +63,13 @@ public class Clock extends Application {
 	
 	private void addNewProject(String name) {
 		Project newProject = new Project(name);
-		mainPlane.getChildren().add(addProject(newProject));
+		addNewProject(newProject);
+	}
+	
+	private void addNewProject(Project project) {
+		mainPlane.getChildren().add(addProject(project));
 		stage.setHeight(stage.getHeight() + 60);
-		projects.add(newProject);
+		projects.add(project);
 	}
 	
 	private VBox addProject(Project project) {
@@ -161,5 +166,33 @@ public class Clock extends Application {
             }
 		}
 		
+	};
+	
+	private EventHandler<ActionEvent> openProjectEventHandler = new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open projects");
+            fileChooser.setInitialDirectory( new File(System.getProperty("user.home")) );
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Consult time projects", "*.ctp"));
+            File file = fileChooser.showOpenDialog(stage);
+            
+            if (file != null) {  
+            	try {
+					Scanner scanner = new Scanner(file);
+					String[] line;
+					Project project;
+					while (scanner.hasNextLine()) {
+						line = scanner.nextLine().split(":");
+						project = new Project(line[0], Integer.parseInt(line[1]));
+						addNewProject(project);
+					}
+					scanner.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+            }
+		}
 	};
 }
