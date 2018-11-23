@@ -1,8 +1,5 @@
 package com.xlent.consultClock;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -55,7 +53,22 @@ public class Clock extends Application {
 				}
 			}
 		});
-		projectBox.getChildren().add(startStopBtn);
+		Button resetBtn = new Button("Reset");
+		resetBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (!project.isTicking()) {
+					project.resetTime();
+					timeLabel.setText(project.getTimeAsString());
+				}
+			}
+		});
+		HBox buttons = new HBox();
+		buttons.getChildren().add(startStopBtn);
+		buttons.getChildren().add(resetBtn);
+		
+		projectBox.getChildren().add(buttons);
 		projectBox.getChildren().add(timeLabel);
 		
 		return projectBox;

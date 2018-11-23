@@ -3,7 +3,6 @@ package com.xlent.consultClock;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
 public class Project {
@@ -11,7 +10,7 @@ public class Project {
 	private String name;
 	private boolean ticking;
 	private int time;
-	private Timer timer = new Timer();
+	private Timer timer;
 	
 	public Project(String name) {
 		this.name = name;
@@ -31,6 +30,7 @@ public class Project {
 	
 	public void start(Text timeLabel) {
 		ticking = true;
+		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			
 			@Override
