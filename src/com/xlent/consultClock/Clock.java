@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -67,10 +68,12 @@ public class Clock extends Application {
 		HBox buttons = new HBox();
 		buttons.getChildren().add(startStopBtn);
 		buttons.getChildren().add(resetBtn);
+		buttons.setAlignment(Pos.TOP_CENTER);
 		
 		projectBox.getChildren().add(buttons);
 		projectBox.getChildren().add(timeLabel);
 		
+		projectBox.setAlignment(Pos.TOP_CENTER);
 		return projectBox;
 	}
 }
