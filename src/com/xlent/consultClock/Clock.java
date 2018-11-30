@@ -130,12 +130,14 @@ public class Clock extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			TextInputDialog dialog = new TextInputDialog();
+			/*TextInputDialog dialog = new TextInputDialog();
 			dialog.setTitle("New project");
 			dialog.setHeaderText("");
 			dialog.setContentText("Please enter a project name:");
 			Optional<String> result = dialog.showAndWait();
-			result.ifPresent(name -> addNewProject(name));
+			result.ifPresent(name -> addNewProject(name));*/
+			Stage newProject = new NewProjectStage();
+			newProject.show();
 		}
 	};
 	
