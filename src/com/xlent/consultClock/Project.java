@@ -39,6 +39,21 @@ public class Project {
 	}
 	
 	/**
+	 * Creates a generic project with specified parameters.
+	 * 
+	 * @param name The name of the project
+	 * @param time The start time of the project
+	 * @param countDown If it shall count down ({@code true}) or up wards ({@code false})
+	 */
+	public Project(String name, int time, int startTime, boolean countDown) {
+		this.name = name;
+		this.ticking = false;
+		this.time = time;
+		this.countDown = countDown;
+		this.startTime = startTime;
+	}
+	
+	/**
 	 * Returns the name of the project.
 	 * 
 	 * @return The project name
@@ -93,6 +108,15 @@ public class Project {
 	 */
 	public int getTime() {
 		return time;
+	}
+	
+	/**
+	 * Get the start time of the project.
+	 * 
+	 * @return The time in seconds
+	 */
+	public int getStartTime() {
+		return startTime;
 	}
 	
 	/**
@@ -164,6 +188,8 @@ public class Project {
 		projectStr.append(getName());
 		projectStr.append(":");
 		projectStr.append(getTime());
+		projectStr.append(":");
+		projectStr.append(getStartTime());
 		projectStr.append(":");
 		projectStr.append(isCountingDown());
 		
