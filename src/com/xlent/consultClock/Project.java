@@ -14,10 +14,7 @@ public class Project {
 	boolean countDown;
 	
 	public Project(String name) {
-		this.name = name;
-		this.ticking = false;
-		this.time = 0;
-		countDown = false;
+		this(name, 0, false);
 	}
 
 	public Project(String name, int time, boolean countDown) {
