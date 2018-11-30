@@ -8,8 +8,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class NewProjectStage<R> extends Dialog<Project> {
 
@@ -18,34 +18,33 @@ public class NewProjectStage<R> extends Dialog<Project> {
 	private CheckBox countDownBox;
 	
 	public NewProjectStage() {
-		VBox newProjectPlane = new VBox();
+		GridPane newProjectPlane = new GridPane();
 		newProjectPlane.setPadding(new Insets(10));
 		
-		HBox nameBox = new HBox();
-		nameBox.setPadding(new Insets(5));
 		Label nameLabel = new Label("Name: ");
-		nameField = new TextField();
-		nameBox.getChildren().addAll(nameLabel, nameField);
+		nameField = new TextField("New Project");
 		
-		HBox timeBox = new HBox();
-		nameBox.setPadding(new Insets(5));
 		Label timeLabel = new Label("Start time (hh:mm:ss): ");
 		timeField = new TextField("00:00:00");
-		timeBox.getChildren().addAll(timeLabel, timeField);
 		
 		countDownBox = new CheckBox("Count down the time");
 		
 		HBox btnBox = new HBox();
-		btnBox.setPadding(new Insets(5));
 		Button createBtn = new Button("Create");
 		createBtn.setOnAction(createProjectHandler);
 		Button cancelBtn = new Button("Cancel");
 		cancelBtn.setOnAction(cancelProjectHandler);
 		btnBox.getChildren().addAll(createBtn, cancelBtn);
 		
-		newProjectPlane.getChildren().addAll(nameBox, timeBox, countDownBox, btnBox);
-		getDialogPane().setContent(newProjectPlane);
+		newProjectPlane.add(nameLabel, 0, 0);
+		newProjectPlane.add(nameField, 1, 0, 2, 1);
+		newProjectPlane.add(timeLabel, 0, 1, 2, 1);
+		newProjectPlane.add(timeField, 2, 1);
+		newProjectPlane.add(countDownBox, 1, 2, 2, 1);
+		newProjectPlane.add(new Label(), 0, 3);
+		newProjectPlane.add(btnBox, 2, 5);
 		
+		getDialogPane().setContent(newProjectPlane);
 		setTitle("Create New project");
 		
 	}
