@@ -11,7 +11,8 @@ public class Project {
 	private boolean ticking;
 	private int time;
 	private Timer timer;
-	boolean countDown;
+	private boolean countDown;
+	private int startTime;
 	
 	public Project(String name) {
 		this(name, 0, false);
@@ -22,6 +23,7 @@ public class Project {
 		this.ticking = false;
 		this.time = time;
 		this.countDown = countDown;
+		this.startTime = time;
 	}
 	
 	public String getName() {
@@ -74,7 +76,7 @@ public class Project {
 	}
 	
 	public void resetTime() {
-		time = 0;
+		time = startTime;
 	}
 	
 	public String getTimeAsString() {
