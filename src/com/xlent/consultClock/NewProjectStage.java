@@ -34,6 +34,7 @@ public class NewProjectStage extends Stage {
 		btnBox.setPadding(new Insets(5));
 		Button createBtn = new Button("Create");
 		Button cancelBtn = new Button("Cancel");
+		btnBox.getChildren().addAll(createBtn, cancelBtn);
 		
 		newProjectPlane.getChildren().addAll(nameBox, timeBox, countDownBox, btnBox);
 		
