@@ -99,6 +99,7 @@ public class Clock extends Application {
 				if (!project.isTicking()) {
 					project.resetTime();
 					timeLabel.setText(project.getTimeAsString());
+					startStopBtn.setText("Start");
 				}
 			}
 		});

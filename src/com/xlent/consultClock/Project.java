@@ -72,6 +72,7 @@ public class Project {
 		time--;
 		if (time == 0) {
 			timer.cancel();
+			ticking = false;
 		}
 	}
 	
