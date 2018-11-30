@@ -18,6 +18,9 @@ public class NewProjectStage<R> extends Dialog<Project> {
 	private TextField nameField;
 	private CheckBox countDownBox;
 	
+	/**
+	 * Creates the window for setting up a new project.
+	 */
 	public NewProjectStage() {
 		GridPane newProjectPlane = new GridPane();
 		newProjectPlane.setPadding(new Insets(10));
@@ -52,10 +55,20 @@ public class NewProjectStage<R> extends Dialog<Project> {
 		window.setOnCloseRequest(event -> window.hide());
 	}
 	
+	/**
+	 * Reads the field with the name of the project and returns it as a {@code String}.
+	 * 
+	 * @return The name of the project
+	 */
 	private String getProjectName() {
 		return nameField.getText();
 	}
 	
+	/**
+	 * Reads the text field for the time and parse it to an integer (i.e. from [hh:mm:ss] to [ss]).
+	 * 
+	 * @return The start time in seconds.
+	 */
 	private int getStartTime() {
 		String timeStr = timeField.getText();
 		String[] timeArr = timeStr.split(":");
@@ -74,6 +87,11 @@ public class NewProjectStage<R> extends Dialog<Project> {
 		return time;
 	}
 	
+	/**
+	 * Check if the project shall count upwards or downwards.
+	 * 
+	 * @return {@code true} if the check-box for counting down is checked
+	 */
 	private boolean isCountDown() {
 		return countDownBox.selectedProperty().get();
 	}
