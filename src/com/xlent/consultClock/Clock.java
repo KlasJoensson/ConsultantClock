@@ -60,11 +60,6 @@ public class Clock extends Application {
 		stage.show();
 	}
 	
-	private void addNewProject(String name) {
-		Project newProject = new Project(name);
-		addNewProject(newProject);
-	}
-	
 	private void addNewProject(Project project) {
 		mainPlane.getChildren().add(addProject(project));
 		stage.setHeight(stage.getHeight() + 60);
