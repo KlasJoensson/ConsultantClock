@@ -11,17 +11,20 @@ public class Project {
 	private boolean ticking;
 	private int time;
 	private Timer timer;
+	boolean countDown;
 	
 	public Project(String name) {
 		this.name = name;
 		this.ticking = false;
 		this.time = 0;
+		countDown = false;
 	}
-	
-	public Project(String name, int time) {
+
+	public Project(String name, int time, boolean countDown) {
 		this.name = name;
 		this.ticking = false;
 		this.time = time;
+		this.countDown = countDown;
 	}
 	
 	public String getName() {
@@ -56,6 +59,13 @@ public class Project {
 	
 	public void addTime() {
 		time++;
+	}
+	
+	public void countDown( ) {
+		time--;
+		if (time == 0) {
+			timer.cancel();
+		}
 	}
 	
 	public void resetTime() {
