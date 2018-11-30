@@ -17,7 +17,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -130,14 +129,9 @@ public class Clock extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			/*TextInputDialog dialog = new TextInputDialog();
-			dialog.setTitle("New project");
-			dialog.setHeaderText("");
-			dialog.setContentText("Please enter a project name:");
-			Optional<String> result = dialog.showAndWait();
-			result.ifPresent(name -> addNewProject(name));*/
-			Stage newProject = new NewProjectStage();
-			newProject.show();
+			NewProjectStage<Project> newProject = new NewProjectStage<Project>();
+			Optional<Project> result = newProject.showAndWait();
+			result.ifPresent(project -> addNewProject(project));
 		}
 	};
 	

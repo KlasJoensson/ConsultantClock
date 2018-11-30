@@ -35,7 +35,11 @@ public class Project {
 			
 			@Override
 			public void run() {
-				addTime();
+				if (isCountingDown()) {
+					countDown();
+				} else {
+					addTime();
+				}
 				timeLabel.setText(getTimeAsString());
 			}
 		}, 0, 1000);
