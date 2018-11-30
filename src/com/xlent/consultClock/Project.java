@@ -54,6 +54,10 @@ public class Project {
 		return time;
 	}
 	
+	public boolean isCountingDown() {
+		return countDown;
+	}
+	
 	public void addTime() {
 		time++;
 	}
@@ -95,6 +99,8 @@ public class Project {
 		projectStr.append(getName());
 		projectStr.append(":");
 		projectStr.append(getTime());
+		projectStr.append(":");
+		projectStr.append(isCountingDown());
 		
 		return projectStr.toString();
 	}

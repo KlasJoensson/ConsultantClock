@@ -185,7 +185,12 @@ public class Clock extends Application {
 					Project project;
 					while (scanner.hasNextLine()) {
 						line = scanner.nextLine().split(":");
-						project = new Project(line[0], Integer.parseInt(line[1]));
+						if (line.length > 2) {
+							project = new Project(line[0], Integer.parseInt(line[1]), Boolean.parseBoolean(line[2]));
+						} else {
+							// Support for files saved before adding count down
+							project = new Project(line[0], Integer.parseInt(line[1]), false);
+						}
 						addNewProject(project);
 					}
 					scanner.close();
