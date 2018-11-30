@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Window;
 
 public class NewProjectStage<R> extends Dialog<Project> {
 
@@ -47,6 +48,8 @@ public class NewProjectStage<R> extends Dialog<Project> {
 		getDialogPane().setContent(newProjectPlane);
 		setTitle("Create New project");
 		
+		Window window = getDialogPane().getScene().getWindow();
+		window.setOnCloseRequest(event -> window.hide());
 	}
 	
 	private String getProjectName() {
@@ -88,8 +91,8 @@ public class NewProjectStage<R> extends Dialog<Project> {
 	EventHandler<ActionEvent> cancelProjectHandler = new EventHandler<ActionEvent>() {
 		
 		@Override
-		public void handle(ActionEvent event) {
-			close();
+		public void handle(ActionEvent ae) {
+			getDialogPane().getScene().getWindow().hide();
 		}
 	};
 }
