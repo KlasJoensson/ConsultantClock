@@ -15,8 +15,15 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -40,11 +47,11 @@ public class Clock extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		stage.setTitle("Consultant clock");
-		
-		mainPlane = new VBox();
-		mainPlane.setPadding(new Insets(10));
+			
+		mainPlane = new VBox(getMenuBar());
 		
 		HBox controlPlane = new HBox();
+		controlPlane.setPadding(new Insets(10));
 		
 		Button addProject = new Button("New");
 		addProject.setOnAction(newProjectEventHandler);
@@ -57,10 +64,52 @@ public class Clock extends Application {
 		openProject.setOnAction(openProjectEventHandler);
 		mainPlane.getChildren().add(controlPlane);
 		
-		Scene scene = new Scene(mainPlane, 200, 50);
-	
+		Scene scene = new Scene(mainPlane, 200, 75);
+		
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	private MenuBar getMenuBar() {
+		MenuBar menuBar = new MenuBar();
+		Menu fileMenu = new Menu("File");
+		Menu settingsMenu = new Menu("Settings");
+		
+		MenuItem newItem = new MenuItem("New...");
+		newItem.setOnAction(newProjectEventHandler);
+		MenuItem openItem = new MenuItem("Open...");
+		openItem.setOnAction(openProjectEventHandler);
+		MenuItem saveItem = new MenuItem("save...");
+		saveItem.setOnAction(saveProjectEventHandler);
+		MenuItem quitItem = new MenuItem("Quit");
+		quitItem.setOnAction(quitEventHandler);
+		
+		Menu langMenu = new Menu("Language");
+		MenuItem langSwItem = new MenuItem("Swedish");
+		langSwItem.setOnAction(swLangEventHandler);
+		MenuItem langEngItem = new MenuItem("English");
+		langEngItem.setOnAction(engLangEventHandler);
+		MenuItem aboutItem = new MenuItem("About");
+		aboutItem.setOnAction(aboutEventHandler);
+		
+		SeparatorMenuItem separator = new SeparatorMenuItem();
+		
+		fileMenu.getItems().add(newItem);
+		fileMenu.getItems().add(openItem);
+		fileMenu.getItems().add(saveItem);
+		fileMenu.getItems().add(separator);
+		fileMenu.getItems().add(quitItem);
+		
+		langMenu.getItems().add(langSwItem);
+		langMenu.getItems().add(langEngItem);
+		
+		settingsMenu.getItems().add(langMenu);
+		settingsMenu.getItems().add(aboutItem);
+		
+		menuBar.getMenus().add(fileMenu);
+		menuBar.getMenus().add(settingsMenu);
+		
+		return menuBar;
 	}
 	
 	/**
@@ -227,6 +276,64 @@ public class Clock extends Application {
 		@Override
 		public void handle(ActionEvent event) {
 			openProjects();
+		}
+	};
+	
+	/**
+	 * Handles clicks on the language menu item for Swedish.
+	 */
+	private EventHandler<ActionEvent> swLangEventHandler = new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			// TODO Implement!
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Information Dialog");
+			alert.setHeaderText(null);
+			alert.setContentText("Not implemented...");
+			alert.showAndWait();
+		}
+	};
+	
+	/**
+	 * Handles clicks on the language menu item English.
+	 */
+	private EventHandler<ActionEvent> engLangEventHandler = new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			// TODO Implement!
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Information Dialog");
+			alert.setHeaderText(null);
+			alert.setContentText("Not implemented...");
+			alert.showAndWait();
+		}
+	};
+	
+	/**
+	 * Handles clicks on the exit menu item.
+	 */
+	private EventHandler<ActionEvent> quitEventHandler = new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.exit(0);
+		}
+	};
+	
+	/**
+	 * Handles clicks on the about menu item.
+	 */
+	private EventHandler<ActionEvent> aboutEventHandler = new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("About Cunsultant clock");
+			alert.setHeaderText(null);
+			alert.setContentText("This small program has been done by Klas Jönsson.\nIt's released under \"GNU general public licence\".");
+			alert.showAndWait();
 		}
 	};
 }
