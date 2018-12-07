@@ -96,6 +96,9 @@ public class NewProjectStage<R> extends Dialog<Project> {
 		return countDownBox.selectedProperty().get();
 	}
 	
+	/**
+	 * Creates a new clock and exits the stage.
+	 */
     EventHandler<ActionEvent> createProjectHandler = new EventHandler<ActionEvent>() {
 		
 		@Override
@@ -106,6 +109,9 @@ public class NewProjectStage<R> extends Dialog<Project> {
 		}
 	};
 	
+	/**
+	 * Discards the clock and exits the stage.
+	 */
 	EventHandler<ActionEvent> cancelProjectHandler = new EventHandler<ActionEvent>() {
 		
 		@Override

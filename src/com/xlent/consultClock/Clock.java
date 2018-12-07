@@ -33,6 +33,9 @@ public class Clock extends Application {
 		launch(args);
 	}
 	
+	/**
+	 * Creates the main stage.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
@@ -60,12 +63,23 @@ public class Clock extends Application {
 		stage.show();
 	}
 	
+	/**
+	 * Adds a new clock to the list of clocks on the main stage.
+	 * 
+	 * @param project The clock to be added
+	 */
 	private void addNewProject(Project project) {
 		mainPlane.getChildren().add(addProject(project));
 		stage.setHeight(stage.getHeight() + 60);
 		projects.add(project);
 	}
 	
+	/**
+	 * Creates the UI for the new clock to be added to the main stage.
+	 * 
+	 * @param project The clock to be added
+	 * @return A {@code VBox} with the components for the new clock
+	 */
 	private VBox addProject(Project project) {
 		VBox projectBox = new VBox();
 		Text timeLabel = new Text(project.getTimeAsString());
@@ -121,6 +135,9 @@ public class Clock extends Application {
 		return projectBox;
 	}
 	
+	/**
+	 * Handles clicks on the button for creating new clocks.
+	 */
 	private EventHandler<ActionEvent> newProjectEventHandler = new EventHandler<ActionEvent>() {
 
 		@Override
@@ -131,6 +148,9 @@ public class Clock extends Application {
 		}
 	};
 	
+	/**
+	 * Handles clicks on the save button.
+	 */
 	private EventHandler<ActionEvent> saveProjectEventHandler = new EventHandler<ActionEvent>() {
 
 		@Override
@@ -160,6 +180,9 @@ public class Clock extends Application {
 		
 	};
 	
+	/**
+	 * Handles clicks on the open button.
+	 */
 	private EventHandler<ActionEvent> openProjectEventHandler = new EventHandler<ActionEvent>() {
 
 		@Override
