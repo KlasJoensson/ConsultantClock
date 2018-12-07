@@ -136,6 +136,65 @@ public class Clock extends Application {
 	}
 	
 	/**
+	 * Saves the clocks on the main stage.
+	 */
+	private void saveProjects() {
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save projects");
+        fileChooser.setInitialDirectory( new File(System.getProperty("user.home")) );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Consult time projects", "*.ctp"));
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) {     	
+        	try {
+        		BufferedWriter writer = Files.newBufferedWriter(file.toPath());
+    			projects.stream().forEach(project -> {
+					try {
+						writer.write( project.toString() + "\n" );
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} );
+    			writer.flush();
+        		writer.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } 
+        }
+	}
+	
+	/**
+	 * Opens clocks from a file and adds them to the main stage.
+	 */
+	private void openProjects() {
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open projects");
+        fileChooser.setInitialDirectory( new File(System.getProperty("user.home")) );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Consult time projects", "*.ctp"));
+        File file = fileChooser.showOpenDialog(stage);
+        
+        if (file != null) {  
+        	try {
+				Scanner scanner = new Scanner(file);
+				String[] line;
+				Project project;
+				while (scanner.hasNextLine()) {
+					line = scanner.nextLine().split(":");
+					if (line.length > 2) {
+						project = new Project(line[0], Integer.parseInt(line[1]), Integer.parseInt(line[2]), Boolean.parseBoolean(line[3]));
+					} else {
+						// Support for files saved before adding count down
+						project = new Project(line[0], Integer.parseInt(line[1]), false);
+					}
+					addNewProject(project);
+				}
+				scanner.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+        }
+	}
+	
+	/**
 	 * Handles clicks on the button for creating new clocks.
 	 */
 	private EventHandler<ActionEvent> newProjectEventHandler = new EventHandler<ActionEvent>() {
@@ -155,27 +214,7 @@ public class Clock extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save projects");
-            fileChooser.setInitialDirectory( new File(System.getProperty("user.home")) );
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Consult time projects", "*.ctp"));
-            File file = fileChooser.showSaveDialog(stage);
-            if (file != null) {     	
-            	try {
-            		BufferedWriter writer = Files.newBufferedWriter(file.toPath());
-        			projects.stream().forEach(project -> {
-						try {
-							writer.write( project.toString() + "\n" );
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					} );
-        			writer.flush();
-            		writer.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } 
-            }
+			saveProjects();
 		}
 		
 	};
@@ -187,32 +226,7 @@ public class Clock extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open projects");
-            fileChooser.setInitialDirectory( new File(System.getProperty("user.home")) );
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Consult time projects", "*.ctp"));
-            File file = fileChooser.showOpenDialog(stage);
-            
-            if (file != null) {  
-            	try {
-					Scanner scanner = new Scanner(file);
-					String[] line;
-					Project project;
-					while (scanner.hasNextLine()) {
-						line = scanner.nextLine().split(":");
-						if (line.length > 2) {
-							project = new Project(line[0], Integer.parseInt(line[1]), Integer.parseInt(line[2]), Boolean.parseBoolean(line[3]));
-						} else {
-							// Support for files saved before adding count down
-							project = new Project(line[0], Integer.parseInt(line[1]), false);
-						}
-						addNewProject(project);
-					}
-					scanner.close();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-            }
+			openProjects();
 		}
 	};
 }
