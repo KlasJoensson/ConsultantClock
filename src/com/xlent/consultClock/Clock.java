@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -285,12 +286,7 @@ public class Clock extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			// TODO Implement!
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Information Dialog");
-			alert.setHeaderText(null);
-			alert.setContentText("Not implemented...");
-			alert.showAndWait();
+			Trans.setLocale(Locale.GERMAN);
 		}
 	};
 	
@@ -301,12 +297,7 @@ public class Clock extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			// TODO Implement!
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Information Dialog");
-			alert.setHeaderText(null);
-			alert.setContentText("Not implemented...");
-			alert.showAndWait();
+			Trans.setLocale(Locale.ENGLISH);
 		}
 	};
 	
