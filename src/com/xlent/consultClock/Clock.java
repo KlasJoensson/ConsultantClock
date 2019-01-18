@@ -137,15 +137,14 @@ public class Clock extends Application {
 		Button startStopBtn = Trans.buttonForKey("button.start");
 		startStopBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
-			// TODO Fix translation...
 			@Override
 			public void handle(ActionEvent event) {
 				if (project.isTicking()) {
 					project.pause();
-					startStopBtn.setText("Start");
+					startStopBtn.textProperty().bind(Trans.createStringBinding("button.start"));
 				} else {
 					project.start(timeLabel);
-					startStopBtn.setText("Pause");					
+					startStopBtn.textProperty().bind(Trans.createStringBinding("button.pause"));					
 				}
 			}
 		});
@@ -157,7 +156,7 @@ public class Clock extends Application {
 				if (!project.isTicking()) {
 					project.resetTime();
 					timeLabel.setText(project.getTimeAsString());
-					startStopBtn.setText("Start");
+					startStopBtn.textProperty().bind(Trans.createStringBinding("button.start"));
 				}
 			}
 		});
