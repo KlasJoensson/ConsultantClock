@@ -46,20 +46,20 @@ public class Clock extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
-		stage.setTitle("Consultant clock");
+		stage.titleProperty().bind(Trans.createStringBinding("window.title"));
 			
 		mainPlane = new VBox(getMenuBar());
 		
 		HBox controlPlane = new HBox();
 		controlPlane.setPadding(new Insets(10));
 		
-		Button addProject = new Button("New");
+		Button addProject = Trans.buttonForKey("button.new");
 		addProject.setOnAction(newProjectEventHandler);
 		controlPlane.getChildren().add(addProject);
-		Button saveProject = new Button("Save");
+		Button saveProject = Trans.buttonForKey("button.save");
 		saveProject.setOnAction(saveProjectEventHandler);
 		controlPlane.getChildren().add(saveProject);
-		Button openProject = new Button("Open");
+		Button openProject = Trans.buttonForKey("button.open");
 		controlPlane.getChildren().add(openProject);
 		openProject.setOnAction(openProjectEventHandler);
 		mainPlane.getChildren().add(controlPlane);
@@ -135,9 +135,10 @@ public class Clock extends Application {
 		
 		projectBox.getChildren().add(new Label(project.getName()));
 				
-		Button startStopBtn = new Button("Start");
+		Button startStopBtn = Trans.buttonForKey("button.start");
 		startStopBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
+			// TODO Fix translation...
 			@Override
 			public void handle(ActionEvent event) {
 				if (project.isTicking()) {
@@ -149,7 +150,7 @@ public class Clock extends Application {
 				}
 			}
 		});
-		Button resetBtn = new Button("Reset");
+		Button resetBtn = Trans.buttonForKey("button.reset");
 		resetBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -161,7 +162,7 @@ public class Clock extends Application {
 				}
 			}
 		});
-		Button removeBtn = new Button("Remove");
+		Button removeBtn = Trans.buttonForKey("button.remove");
 		removeBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -189,7 +190,7 @@ public class Clock extends Application {
 	 */
 	private void saveProjects() {
 		FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save projects");
+        fileChooser.titleProperty().bind(Trans.createStringBinding("save.title"));
         fileChooser.setInitialDirectory( new File(System.getProperty("user.home")) );
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Consult time projects", "*.ctp"));
         File file = fileChooser.showSaveDialog(stage);
@@ -216,7 +217,7 @@ public class Clock extends Application {
 	 */
 	private void openProjects() {
 		FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open projects");
+        fileChooser.titleProperty().bind(Trans.createStringBinding("open.title"));
         fileChooser.setInitialDirectory( new File(System.getProperty("user.home")) );
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Consult time projects", "*.ctp"));
         File file = fileChooser.showOpenDialog(stage);

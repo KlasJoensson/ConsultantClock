@@ -34,9 +34,9 @@ public class NewProjectStage<R> extends Dialog<Project> {
 		countDownBox = new CheckBox("Count down the time");
 		
 		HBox btnBox = new HBox();
-		Button createBtn = new Button("Create");
+		Button createBtn = Trans.buttonForKey("button.create");
 		createBtn.setOnAction(createProjectHandler);
-		Button cancelBtn = new Button("Cancel");
+		Button cancelBtn = Trans.buttonForKey("button.cancel");
 		cancelBtn.setOnAction(cancelProjectHandler);
 		btnBox.getChildren().addAll(createBtn, cancelBtn);
 		

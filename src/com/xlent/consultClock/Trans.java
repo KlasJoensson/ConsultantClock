@@ -25,7 +25,7 @@ import javafx.scene.control.Tooltip;
  * @author Klas Jönsson (klas.joensson@gmail.com)
  *
  */
-public final class Text {
+public final class Trans {
 
 	/** the current selected Locale. */
     private static final ObjectProperty<Locale> locale;
