@@ -71,24 +71,24 @@ public class Clock extends Application {
 	
 	private MenuBar getMenuBar() {
 		MenuBar menuBar = new MenuBar();
-		Menu fileMenu = new Menu("File");
-		Menu settingsMenu = new Menu("Settings");
+		Menu fileMenu = Trans.menuForKey("menu.file");
+		Menu settingsMenu = Trans.menuForKey("menu.settings");
 		
-		MenuItem newItem = new MenuItem("New...");
+		MenuItem newItem = Trans.menuItemForKey("menu.file.new");
 		newItem.setOnAction(newProjectEventHandler);
-		MenuItem openItem = new MenuItem("Open...");
+		MenuItem openItem = Trans.menuItemForKey("menu.file.open");
 		openItem.setOnAction(openProjectEventHandler);
-		MenuItem saveItem = new MenuItem("save...");
+		MenuItem saveItem = Trans.menuItemForKey("menu.file.save");
 		saveItem.setOnAction(saveProjectEventHandler);
-		MenuItem quitItem = new MenuItem("Quit");
+		MenuItem quitItem = Trans.menuItemForKey("menu.file.quit");
 		quitItem.setOnAction(quitEventHandler);
 		
-		Menu langMenu = new Menu("Language");
-		MenuItem langSwItem = new MenuItem("Swedish");
+		Menu langMenu = Trans.menuForKey("menu.language");
+		MenuItem langSwItem = Trans.menuItemForKey("menu.language.sv");
 		langSwItem.setOnAction(swLangEventHandler);
-		MenuItem langEngItem = new MenuItem("English");
+		MenuItem langEngItem = Trans.menuItemForKey("menu.language.en");
 		langEngItem.setOnAction(engLangEventHandler);
-		MenuItem aboutItem = new MenuItem("About");
+		MenuItem aboutItem = Trans.menuItemForKey("menu.settings.about");
 		aboutItem.setOnAction(aboutEventHandler);
 		
 		SeparatorMenuItem separator = new SeparatorMenuItem();

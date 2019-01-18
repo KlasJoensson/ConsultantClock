@@ -14,6 +14,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
 
 /**
@@ -43,6 +45,7 @@ public final class Trans {
     	//TODO I can't find any Local.SWEDISH... But should according to the doc...or...?
         return new ArrayList<>(Arrays.asList(Locale.ENGLISH, Locale.GERMAN));
     }
+    
     /**
      * get the default locale. This is the systems default if contained in the supported locales, english otherwise.
      *
@@ -56,10 +59,12 @@ public final class Trans {
     public static Locale getLocale() {
         return locale.get();
     }
+    
     public static void setLocale(Locale locale) {
         localeProperty().set(locale);
         Locale.setDefault(locale);
     }
+    
     public static ObjectProperty<Locale> localeProperty() {
         return locale;
     }
@@ -89,6 +94,7 @@ public final class Trans {
     public static StringBinding createStringBinding(final String key, Object... args) {
         return Bindings.createStringBinding(() -> get(key, args), locale);
     }
+    
     /**
      * creates a String Binding to a localized String that is computed by calling the given func
      *
@@ -112,6 +118,7 @@ public final class Trans {
         label.textProperty().bind(createStringBinding(func));
         return label;
     }
+    
     /**
      * creates a bound Button for the given resourcebundle key
      *
@@ -126,6 +133,37 @@ public final class Trans {
         button.textProperty().bind(createStringBinding(key, args));
         return button;
     }
+    
+    /**
+     * creates a bound Menu for the given resourcebundle key
+     *
+     * @param key
+     *         ResourceBundle key
+     * @param args
+     *         optional arguments for the message
+     * @return Button
+     */
+    public static Menu menuForKey(final String key, final Object... args) {
+        Menu menu = new Menu();
+        menu.textProperty().bind(createStringBinding(key, args));
+        return menu;
+    }
+    
+    /**
+     * creates a bound MenuItem for the given resourcebundle key
+     *
+     * @param key
+     *         ResourceBundle key
+     * @param args
+     *         optional arguments for the message
+     * @return Button
+     */
+    public static MenuItem menuItemForKey(final String key, final Object... args) {
+        MenuItem item = new MenuItem();
+        item.textProperty().bind(createStringBinding(key, args));
+        return item;
+    }
+    
     /**
      * creates a bound Tooltip for the given resourcebundle key
      *
