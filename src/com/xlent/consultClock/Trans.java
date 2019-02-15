@@ -29,6 +29,8 @@ import javafx.scene.control.Tooltip;
  */
 public final class Trans {
 
+	protected static final Locale SWEDISH = new Locale("sv_SE");
+	
 	/** the current selected Locale. */
     private static final ObjectProperty<Locale> locale;
     static {
@@ -42,8 +44,7 @@ public final class Trans {
      * @return List of Locale objects.
      */
     public static List<Locale> getSupportedLocales() {
-    	//TODO I can't find any Local.SWEDISH... But should according to the doc...or...?
-        return new ArrayList<>(Arrays.asList(Locale.ENGLISH, Locale.GERMAN));
+        return new ArrayList<>(Arrays.asList(Locale.ENGLISH, SWEDISH));
     }
     
     /**
@@ -53,6 +54,11 @@ public final class Trans {
      */
     public static Locale getDefaultLocale() {
         Locale sysDefault = Locale.getDefault();
+        // Workaround since Locale.SWEDISH don't exists...
+        if(sysDefault.getCountry() == "SE") {
+        	return new Locale("sv_SE");
+        }
+        	
         return getSupportedLocales().contains(sysDefault) ? sysDefault : Locale.ENGLISH;
     }
     
@@ -80,7 +86,7 @@ public final class Trans {
      * @return localized formatted string
      */
     public static String get(final String key, final Object... args) {
-        ResourceBundle bundle = ResourceBundle.getBundle("messages", getLocale());
+        ResourceBundle bundle = ResourceBundle.getBundle("com.xlent.consultClock.message", getLocale());
         return MessageFormat.format(bundle.getString(key), args);
     }
     

@@ -286,7 +286,7 @@ public class Clock extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			Trans.setLocale(Locale.GERMAN);
+			Trans.setLocale(Trans.SWEDISH);
 		}
 	};
 	
