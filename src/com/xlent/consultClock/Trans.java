@@ -44,7 +44,7 @@ public final class Trans {
      * @return List of Locale objects.
      */
     public static List<Locale> getSupportedLocales() {
-        return new ArrayList<>(Arrays.asList(Locale.ENGLISH, SWEDISH));
+        return new ArrayList<>(Arrays.asList(Locale.ENGLISH, Locale.GERMAN, SWEDISH));
     }
     
     /**

@@ -89,6 +89,8 @@ public class Clock extends Application {
 		langSwItem.setOnAction(swLangEventHandler);
 		MenuItem langEngItem = Trans.menuItemForKey("menu.language.en");
 		langEngItem.setOnAction(engLangEventHandler);
+		MenuItem langDeItem = Trans.menuItemForKey("menu.language.de");
+		langDeItem.setOnAction(deLangEventHandler);
 		MenuItem aboutItem = Trans.menuItemForKey("menu.settings.about");
 		aboutItem.setOnAction(aboutEventHandler);
 		
@@ -102,6 +104,7 @@ public class Clock extends Application {
 		
 		langMenu.getItems().add(langSwItem);
 		langMenu.getItems().add(langEngItem);
+		langMenu.getItems().add(langDeItem);
 		
 		settingsMenu.getItems().add(langMenu);
 		settingsMenu.getItems().add(aboutItem);
@@ -298,6 +301,17 @@ public class Clock extends Application {
 		@Override
 		public void handle(ActionEvent event) {
 			Trans.setLocale(Locale.ENGLISH);
+		}
+	};
+	
+	/**
+	 * Handles clicks on the language menu item English.
+	 */
+	private EventHandler<ActionEvent> deLangEventHandler = new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			Trans.setLocale(Locale.GERMAN);
 		}
 	};
 	
